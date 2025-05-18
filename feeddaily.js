@@ -14,7 +14,7 @@ async function scrapeStockFeeds() {
   const stocks = await getStockFromCSV();
   console.log('Starting browser...');
   const browser = await puppeteer.launch({
-    headless: false,
+    headless: true,
    
     defaultViewport: null,
     timeout: 0,

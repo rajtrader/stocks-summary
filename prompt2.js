@@ -173,6 +173,6 @@ export async function rundailyloser() {
   }
 }
 
-rundailyloser();
+
 
 

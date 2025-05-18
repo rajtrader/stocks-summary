@@ -13,7 +13,7 @@ export async function runChartinkScraper() {
   const downloadPath = path.resolve('./');
 
   const browser = await puppeteer.launch({
-    headless: false,
+    headless: true,
     args: [
       `--download.default_directory=${downloadPath}`,
       '--disable-extensions',

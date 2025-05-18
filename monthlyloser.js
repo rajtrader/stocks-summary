@@ -12,7 +12,7 @@ export async function getMonthlyLosers() {
   const downloadPath = path.resolve('./'); 
 
   const browser = await puppeteer.launch({ 
-    headless: false,
+    headless: true,
     args: [
       `--download.default_directory=${downloadPath}`,
       '--disable-extensions',
