@@ -261,4 +261,3 @@ export async function feedmonthlyloser() {
     console.error('Scraping failed:', error);
   }
 }
-feedmonthlyloser();
