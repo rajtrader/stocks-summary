@@ -59,10 +59,12 @@ async function getCompanyFeed(stockName) {
   try {
     connection = await pool.getConnection();
     const [rows] = await connection.query(
-      `SELECT content FROM wp_stockedge_monthly_gainer_investigator
-       WHERE stockName = ?
-       AND date >= DATE_SUB(NOW(), INTERVAL 3 MONTH)
-       ORDER BY date DESC`,
+      `SELECT content
+      FROM wp_stockedge_monthly_gainer_investigator
+      WHERE stockName = ?
+      AND date >= DATE_SUB(CURDATE(), INTERVAL 3 MONTH)
+      AND date < CURDATE()
+      ORDER BY date DESC`,
       [stockName]
     );
 
@@ -79,8 +81,8 @@ async function getCompanyFeed(stockName) {
 
 async function classifyFeedWithGroq(stockName, feed, apikey) {
   const prompt = `You are a financial analyst. Analyze the following recent news and updates about the NSE-listed company "${stockName}":${feed}
-From this feed, identify and give the **top 3 feed** why this company may be appearing as a daily gainer in the stock market. Base your reasoning only on the feed content. Be concise and specific. 
-From the above content, Find 3 reasons explaining the daily gainer behaviour, and give each reason in 100 characters.`;
+From this feed, identify and give the **top 3 feed** why this company may be appearing as a monthly loser in the stock market. Base your reasoning only on the feed content. Be concise and specific. 
+From the above content, Find 3 reasons explaining the monthly loser behaviour, and give each reason in 100 characters.`;
 
   try {
     const response = await axios.post(
@@ -138,7 +140,7 @@ async function sendToWordPress(stock, stockName, reasons, tag = 'monthlygainer')
   }
 }
 
-export async function runmonthlyloss() {
+export async function runmonthlygain() {
   const apikey = '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';
   const companies = extractStockNameFromCSV('./monthlygainer.csv');
 
@@ -171,3 +173,4 @@ export async function runmonthlyloss() {
   }
 }
 
+runmonthlygain();

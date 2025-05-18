@@ -59,10 +59,12 @@ async function getCompanyFeed(stockName) {
   try {
     connection = await pool.getConnection();
     const [rows] = await connection.query(
-      `SELECT content FROM wp_stockedge_daily_gainer_investigator
-       WHERE stockName = ?
-       AND date >= DATE_SUB(NOW(), INTERVAL 3 MONTH)
-       ORDER BY date DESC`,
+      `SELECT content
+      FROM wp_stockedge_daily_gainer_investigator
+      WHERE stockName = ?
+      AND date >= DATE_SUB(CURDATE(), INTERVAL 3 MONTH)
+      AND date < CURDATE()
+      ORDER BY date DESC;`,
       [stockName]
     );
 
@@ -170,6 +172,6 @@ export async function rundailygainer() {
     await delay(30000); 
   }
 }
-
+rundailygainer()
 
 

@@ -12,8 +12,8 @@ import { feedmonthlyloser } from './feedmonthlyloser.js';
 
 import {rundailygainer} from './prompt.js';
 import {rundailyloser} from './prompt2.js';
-import {runmonthlygainer} from './prompt3.js';
-import {runmonthlyloss} from './prompt4.js';
+import {runmonthlyloss} from './prompt3.js';
+import {runmonthlygain} from './prompt4.js';
 async function runAllTasksSequentially() {
   try {
     await runChartinkScraper();
@@ -46,12 +46,12 @@ async function runAllTasksSequentially() {
     await rundailyloser()
     console.log('Prompt completed!');
 
-    await runmonthlygainer()
-    console.log('Prompt completed!');
-
     await runmonthlyloss()
     console.log('Prompt completed!');
-    
+
+    await runmonthlygain()
+    console.log('Prompt completed!');
+
     console.log(' All tasks executed sequentially!');
   } catch (err) {
     console.error(' Error during task execution:', err);
