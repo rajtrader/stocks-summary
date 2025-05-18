@@ -21,7 +21,8 @@ async function scrapeStockFeeds() {
       '--disable-setuid-sandbox',
       '--disable-dev-shm-usage',
       '--disable-gpu',
-      '--single-process'
+      '--single-process',
+      '--disable-extensions'
     ]
   });
   

@@ -15,7 +15,9 @@ export async function runMonthlyGainerScraper() {
     headless: true,
     args: [
       `--download.default_directory=${downloadPath}`,
-      '--disable-extensions',
+    '--disable-extensions',
+    '--no-sandbox',
+    '--disable-setuid-sandbox',
     ],
   });
 

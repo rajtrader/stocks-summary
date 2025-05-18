@@ -16,8 +16,10 @@ export async function getDailyLosers() {
   const browser = await puppeteer.launch({
     headless: true,
     args: [
-      `--download.default_directory=${downloadPath}`,
-      '--disable-extensions',
+    `--download.default_directory=${downloadPath}`,
+    '--disable-extensions',
+    '--no-sandbox',
+    '--disable-setuid-sandbox',
     ],
   });
 

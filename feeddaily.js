@@ -23,9 +23,11 @@ async function scrapeStockFeeds() {
       '--disable-setuid-sandbox',
       '--disable-dev-shm-usage',
       '--disable-gpu',
-      '--single-process'
+      '--single-process',
+      '--disable-extensions'
     ]
   });
+     
   
   const delay = (ms) => new Promise(resolve => setTimeout(resolve, ms));
   const page = await browser.newPage();
