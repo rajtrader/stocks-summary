@@ -1,7 +1,8 @@
-import puppeteer from 'puppeteer';
 
+import puppeteer from 'puppeteer-extra';
+import StealthPlugin from 'puppeteer-extra-plugin-stealth'
 import { getStockFromCSV } from './parsecsv2.js';
-
+puppeteer.use(StealthPlugin());
 //const stocks=['20Microns','360ONE']
 
 import axios from 'axios'
@@ -24,8 +25,11 @@ async function scrapeStockFeeds() {
       '--disable-dev-shm-usage',
       '--disable-gpu',
       '--single-process',
-      '--disable-extensions'
-    ]
+      '--disable-extensions',
+      '--disable-blink-features=AutomationControlled', // Important
+    '--window-size=1920,1080'
+    ],
+    ignoreHTTPSErrors: true,
   });
      
   
@@ -33,7 +37,7 @@ async function scrapeStockFeeds() {
   const page = await browser.newPage();
   
   await page.setUserAgent(
-    'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/121.0.0.0 Safari/537.36'
+    'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/122.0.0.0 Safari/537.36'
   );
   
   await page.setExtraHTTPHeaders({
@@ -62,10 +66,16 @@ async function scrapeStockFeeds() {
         
         // Wait for the page to be completely loaded
         await delay(3000);
-        
+      
+
         // Click on the search bar
+     
+
         await page.waitForSelector('input.searchbar-input', { timeout: 60000 });
+        
+
         await page.click('input.searchbar-input');
+
         await delay(1000);
         
         // Clear any existing search text
@@ -81,14 +91,16 @@ async function scrapeStockFeeds() {
         
         // Wait longer for search results to appear and stabilize
         await delay(3000);
-        await page.waitForSelector('ion-item[button]', { timeout: 30000 });
+
+        await page.waitForSelector('ion-item[button]', { timeout: 60000 });
+
         await delay(2000);
         
         // Click on the first stock result
         const clickedResult = await page.evaluate(() => {
           const stockItems = Array.from(document.querySelectorAll('ion-item[button]'));
           for (const item of stockItems) {
-            const labelText = item.querySelector('ion-label').textContent;
+            const labelText = item.querySelector('ion-label')?.textContent||'';
             const chipText = item.querySelector('ion-chip ion-label')?.textContent || '';
             
             if (chipText.includes('Stock')) {
@@ -108,7 +120,7 @@ async function scrapeStockFeeds() {
         console.log(` Clicked on stock: ${clickedResult}`);
 
         // Wait for navigation to complete - longer timeout
-        await page.waitForNavigation({ waitUntil: 'networkidle2', timeout: 30000 });
+        await page.waitForNavigation({ waitUntil: 'networkidle2', timeout: 60000 });
         await delay(8000);
         
         // Get the current URL
@@ -119,14 +131,14 @@ async function scrapeStockFeeds() {
         if (!currentUrl.includes('section=feeds')) {
           const feedsUrl = `${currentUrl.split('?')[0]}?section=feeds`;
           console.log(` Navigating to feeds section: ${feedsUrl}`);
-          await page.goto(feedsUrl, { waitUntil: 'networkidle2', timeout: 30000 });
+          await page.goto(feedsUrl, { waitUntil: 'networkidle2', timeout: 60000 });
           await delay(5000);
         }
 
         // Wait for feed items to load
         console.log('Waiting for feed items to load...');
         try {
-          await page.waitForSelector('ion-item.item', { timeout: 20000 });
+          await page.waitForSelector('ion-item.item', { timeout: 60000 });
         } catch (e) {
           console.log("Could not find feed items, trying to continue anyway");
         }
