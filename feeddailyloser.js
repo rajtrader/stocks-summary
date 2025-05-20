@@ -3,7 +3,6 @@ import puppeteer from 'puppeteer-extra';
 import StealthPlugin from 'puppeteer-extra-plugin-stealth'
 puppeteer.use(StealthPlugin());
 import { getStockDailyFromCSV } from './parsecsv4.js';
-//const stocks=['20Microns','360ONE']
 
 import axios from 'axios'
 
@@ -59,7 +58,7 @@ async function scrapeStockFeeds() {
     const allResults = [];
    
   
-    for (const { stockName, stock } of stocks) {
+    for (const { stockName, stock,changePercent } of stocks) {
       try {
         console.log(`Searching for stock: ${stock}`);
         
@@ -186,6 +185,7 @@ async function scrapeStockFeeds() {
             const wpData = { 
               stock: stock,
               stockName:stockName,
+              changePercent:changePercent,
               date: item.date, 
               source: item.source,
               content: item.content,
@@ -240,6 +240,7 @@ async function storeInWordPress(data) {
     const response = await axios.post(wpApiUrl, {
       stock: data.stock,
       stockName:data.stockName,
+      changePercent:data.changePercent,
       date: data.date,
       source: data.source,
       content: data.content
@@ -261,4 +262,5 @@ export async function feeddailyloser() {
     console.error('Scraping failed:', error);
   }
 }
+
 

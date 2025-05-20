@@ -74,7 +74,7 @@ export async function runChartinkScraper() {
     }
   });
 
-  await page.type('.atlas-input', '10');
+  await page.type('.atlas-input', '7');
   await page.keyboard.press('Tab');
 
   await page.waitForSelector('.run_scan_button');

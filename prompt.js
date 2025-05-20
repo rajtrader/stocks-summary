@@ -38,6 +38,7 @@ function extractStockNameFromCSV(filePath = './dailygainer.csv') {
   const header = parseCSVLine(lines[0]);
   const stockNameIndex = header.indexOf('Stock Name');
   const symbolIndex = header.indexOf('Symbol');
+  const changePercent = header.indexOf('% Chg');
 
   if (stockNameIndex === -1 || symbolIndex === -1) {
     throw new Error('Missing required columns: "Stock Name" or "Symbol"');
@@ -47,7 +48,8 @@ function extractStockNameFromCSV(filePath = './dailygainer.csv') {
     const fields = parseCSVLine(line);
     return {
       name: fields[stockNameIndex],
-      symbol: fields[symbolIndex]
+      symbol: fields[symbolIndex],
+      change:fields[changePercent],
     };
   });
 
@@ -121,11 +123,12 @@ function extractTop3Points(text) {
   });
 }
 
-async function sendToWordPress(stock, stockName, reasons, tag = 'dailygainer') {
+async function sendToWordPress(stock, stockName,changePercent, reasons, tag = 'dailygainer') {
   try {
     const response = await axios.post(wpApiUrl, {
       stock: stock,
       stockName: stockName,
+      changePercent:changePercent,
       summary1: reasons[0] || 'No summary available',
       summary2: reasons[1] || 'No summary available',
       summary3: reasons[2] || 'No summary available',
@@ -161,7 +164,7 @@ export async function rundailygainer() {
     const reasonsArray = extractTop3Points(cleanResult);
     console.log("Extracted top 3 reasons:", reasonsArray);
     if (reasonsArray.length === 3) {
-    await sendToWordPress(company.symbol, company.name, reasonsArray);
+    await sendToWordPress(company.symbol, company.name,company.change, reasonsArray);
     } else {
     console.warn(`Could not extract 3 reasons for ${company.name}, skipping WordPress posting.`);
 }

@@ -3,12 +3,12 @@ import puppeteer from 'puppeteer-extra';
 import StealthPlugin from 'puppeteer-extra-plugin-stealth'
 import { getStockFromCSV } from './parsecsv2.js';
 puppeteer.use(StealthPlugin());
-//const stocks=['20Microns','360ONE']
+
 
 import axios from 'axios'
 
 
-const wpApiUrl='https://profitbooking.in/wp-json/scraper/v1/stockedge-daily-investigator';
+const wpApiUrl='https://profitbooking.in/wp-json/scraper/v1/stockedge-dailygain-investigator';
 
 async function scrapeStockFeeds() {
   
@@ -26,7 +26,7 @@ async function scrapeStockFeeds() {
       '--disable-gpu',
       '--single-process',
       '--disable-extensions',
-      '--disable-blink-features=AutomationControlled', // Important
+      '--disable-blink-features=AutomationControlled', 
     '--window-size=1920,1080'
     ],
     ignoreHTTPSErrors: true,
@@ -60,7 +60,7 @@ async function scrapeStockFeeds() {
     const allResults = [];
    
    
-    for (const { stockName, stock } of stocks) {
+    for (const { stockName, stock,changePercent  } of stocks) {
       try {
         console.log(`Searching for stock: ${stock}`);
         
@@ -134,7 +134,7 @@ async function scrapeStockFeeds() {
           await page.goto(feedsUrl, { waitUntil: 'networkidle2', timeout: 60000 });
           await delay(5000);
         }
-
+ 
         // Wait for feed items to load
         console.log('Waiting for feed items to load...');
         try {
@@ -195,6 +195,7 @@ async function scrapeStockFeeds() {
             const wpData = { 
               stock: stock,
               stockName:stockName,
+              changePercent:changePercent,
               date: item.date, 
               source: item.source,
               content: item.content,
@@ -249,6 +250,7 @@ async function storeInWordPress(data) {
     const response = await axios.post(wpApiUrl, {
       stock: data.stock,
       stockName:data.stockName,
+      changePercent:data.changePercent,
       date: data.date,
       source: data.source,
       content: data.content
@@ -270,4 +272,5 @@ export async function feed() {
     console.error('Scraping failed:', error);
   }
 }
+
 
