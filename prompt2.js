@@ -2,7 +2,11 @@ import fs from 'fs';
 import path from 'path';
 import mysql from 'mysql2/promise';
 import axios from 'axios';
+import dotenv from 'dotenv'
 
+dotenv.config();
+
+const apikey=process.env.API_PROMPT_LOSER;
 const dbConfig = {
   host: 'srv1856.hstgr.io',
   user: 'u218978860_fbcwE',
@@ -145,7 +149,7 @@ async function sendToWordPress(stock, stockName,changePercent, reasons, tag = 'd
 }
 
 export async function rundailyloser() {
-  const apikey = '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';
+
   const companies = extractStockNameFromCSV('./dailyloser.csv');
 
   for (const company of companies) {
@@ -176,7 +180,6 @@ export async function rundailyloser() {
     await delay(30000); 
   }
 }
-
 
 
 

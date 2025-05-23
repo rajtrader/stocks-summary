@@ -2,7 +2,11 @@ import fs from 'fs';
 import path from 'path';
 import mysql from 'mysql2/promise';
 import axios from 'axios';
+import dotenv from 'dotenv'
 
+dotenv.config();
+
+const apikey=process.env.API_PROMPT;
 const dbConfig = {
   host: 'srv1856.hstgr.io',
   user: 'u218978860_fbcwE',
@@ -141,7 +145,6 @@ async function sendToWordPress(stock, stockName, reasons, tag = 'monthlygainer')
 }
 
 export async function runmonthlygain() {
-  const apikey = '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';
   const companies = extractStockNameFromCSV('./monthlygainer.csv');
 
   for (const company of companies) {
