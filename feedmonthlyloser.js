@@ -3,7 +3,6 @@ import puppeteer from 'puppeteer-extra';
 import StealthPlugin from 'puppeteer-extra-plugin-stealth'
 import { getStockMonthlyFromCSV } from './parsecsv3.js';
 puppeteer.use(StealthPlugin());
-//const stocks=['20Microns','360ONE']
 
 import axios from 'axios'
 
@@ -59,9 +58,9 @@ async function scrapeStockFeeds() {
     const allResults = [];
    
   
-    for (const { stockName, stock } of stocks) {
+    for (const { stockName, changePercent } of stocks) {
       try {
-        console.log(`Searching for stock: ${stock}`);
+        console.log(`Searching for stock: ${stockName}`);
         
         // Wait for the page to be completely loaded
         await delay(3000);
@@ -78,7 +77,7 @@ async function scrapeStockFeeds() {
         await delay(1000);
         
         // Type the stock name slowly with delay between keys
-        for (const char of stock) {
+        for (const char of stockName) {
           await page.type('input.searchbar-input', char, { delay: 100 });
         }
         
@@ -104,7 +103,7 @@ async function scrapeStockFeeds() {
         });
         
         if (!clickedResult) {
-          console.log(` No matching stock found for: ${stock}`);
+          console.log(` No matching stock found for: ${stockName}`);
           continue;
         }
         
@@ -163,11 +162,11 @@ async function scrapeStockFeeds() {
           return results;
         });
 
-        console.log(` Scraped ${feedItems.length} feed items for ${stock}`);
+        console.log(` Scraped ${feedItems.length} feed items for ${stockName}`);
         
         
         if (feedItems && feedItems.length > 0) {
-          console.log(`\n===== FEED ITEMS FOR ${stock} =====`);
+          console.log(`\n===== FEED ITEMS FOR ${stockName} =====`);
           console.log(stockName)
           feedItems.forEach((item, index) => {
             console.log(`\nItem #${index + 1}:`);
@@ -179,43 +178,44 @@ async function scrapeStockFeeds() {
           console.log('\n');
           
         
-          console.log(`Storing feed data for ${stock} in WordPress...`);
+          console.log(`Storing feed data for ${stockName} in WordPress...`);
           
           // Store each feed item in WordPress
           for (const [index, item] of feedItems.entries()) {
             const wpData = { 
-              stock: stock,
+            
               stockName:stockName,
+              changePercent:changePercent,
               date: item.date, 
               source: item.source,
               content: item.content,
             };
             
-            console.log(`\nStoring item #${index + 1} for ${stock}:`);
+            console.log(`\nStoring item #${index + 1} for ${stockName}:`);
             console.log(JSON.stringify(wpData, null, 2));
             
             const stored = await storeInWordPress(wpData);
             if (stored) {
-              console.log(`Successfully stored "${stock}" feed item from ${item.date} in WordPress.`);
+              console.log(`Successfully stored "${stockName}" feed item from ${item.date} in WordPress.`);
             } else if (stored?.duplicate) {
-              console.log(`Skipped duplicate: "${stock}" feed item from ${item.date}`);
+              console.log(`Skipped duplicate: "${stockName}" feed item from ${item.date}`);
             } else {
-              console.log(`Failed to store "${stock}" feed item from ${item.date} in WordPress.`);
+              console.log(`Failed to store "${stockName}" feed item from ${item.date} in WordPress.`);
             }
             
             
             await delay(500);
           }
         } else {
-          console.log(`No feed items found for ${stock}, nothing to store.`);
+          console.log(`No feed items found for ${stockName}, nothing to store.`);
         }
         
     
-        allResults.push({ stock,stockName, feedItems });
+        allResults.push({ stockName,changePercent, feedItems });
         await delay(2000); // wait before next search
         
       } catch (error) {
-        console.log(` Failed to extract feed data for ${stock}:`, error.message);
+        console.log(` Failed to extract feed data for ${stockName}:`, error.message);
         // Continue with the next stock even if this one fails
       }
     }
@@ -238,8 +238,9 @@ async function storeInWordPress(data) {
   try {
     console.log('Sending to WordPress API...');
     const response = await axios.post(wpApiUrl, {
-      stock: data.stock,
+      
       stockName:data.stockName,
+      changePercent:data.changePercent,
       date: data.date,
       source: data.source,
       content: data.content

@@ -43,6 +43,12 @@ jobs:
 
       - name: Install project dependencies
         run: npm install
+      
+      - name: Create .env file with API key
+        run: |
+           echo "API_PROMPT=${{ secrets.API_PROMPT }}" >> .env
+           echo "API_PROMPT_LOSER=${{ secrets.API_PROMPT_LOSER }}" >> .env
+
 
       - name: Run scraper
         run: node index.js

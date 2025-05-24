@@ -4,7 +4,7 @@ import { feed } from './feeddaily.js';
 import { getDailyLosers } from './dailyloser.js';
 import { feeddailyloser } from './feeddailyloser.js';
 
-import { runMonthlyGainerScraper } from './monthly.js';
+import { runMonthlyGainerScraper } from './monthlygainer.js';
 import { feedmonthly } from './feedmonthly.js';
 
 import { getMonthlyLosers } from './monthlyloser.js';
@@ -37,7 +37,7 @@ async function runAllTasksSequentially() {
     //await getMonthlyLosers();
     //console.log('Monthly Loser scraping completed!');
 
-   // await feedmonthlyloser();
+    //await feedmonthlyloser();
     //console.log('Monthly Loser feed completed!');
     
     await rundailygainer();

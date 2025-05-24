@@ -1,72 +1,28 @@
-"Sr.","Stock Name","Symbol","Links","% Chg","Price","Volume"
-"66","NIFTY50DIVPOINT","NIFTY50DIVPOINT","P&F | F.A","275.15%","18.42","0"
-"16","Nucleus Software Exports Limited","NUCLEUS","P&F | F.A","20%","1186.25","3,08,866"
-"68","Zee Learn Limited","ZEELEARN","P&F | F.A","19.97%","7.87","44,38,862"
-"10","Paras Defence and Space Technologies Ltd","PARAS","P&F | F.A","18.82%","1799.5","77,18,276"
-"43","Rites Ltd","RITES","P&F | F.A","15.6%","286.99","2,50,91,451"
-"8","Cochin Shipyard","COCHINSHIP","P&F | F.A","12.33%","2035.6","3,35,98,999"
-"60","ICDS Ltd","ICDSLTD","P&F | F.A","9.99%","51.77","8,171"
-"48","Kanpur Plastipack Ltd","KANPRPLA","P&F | F.A","9.98%","195.9","3,48,689"
-"64","Hcl Infosystems Limited","HCL-INSYS","P&F | F.A","9.98%","20.5","27,03,100"
-"6","Garden Reach Shipbuilders & Engineers Ltd","GRSE","P&F | F.A","9.87%","2481.7","1,43,93,037"
-"41","Wanbury Limited","WANBURY","P&F | F.A","9.83%","304.85","25,59,310"
-"46","Walchandnagar Industries Limited","WALCHANNAG","P&F | F.A","8.79%","227.47","23,01,330"
-"18","Astra Microwave Products Limited","ASTRAMICRO","P&F | F.A","7.03%","1072.8","27,51,729"
-"42","Shree Pushkar Chemicals & Fertilisers Limited","SHREEPUSHK","P&F | F.A","6.31%","296.95","1,35,484"
-"32","IFGL Refractories Ltd","IFGLEXPOR","P&F | F.A","6.29%","484.75","51,289"
-"47","Rudrabhishek Enterprises Ltd","REPL","P&F | F.A","6.01%","220.4","4,08,849"
-"39","Railtel Corporation of India Ltd","RAILTEL","P&F | F.A","5.94%","383.55","1,13,60,243"
-"58","Cubex Tubings Limited","CUBEXTUB","P&F | F.A","5.32%","92.78","6,76,701"
-"11","Zen Technologies Limited","ZENTEC","P&F | F.A","5%","1794.8","10,21,058"
-"21","63 Moons Technologies","63MOONS","P&F | F.A","5%","819.05","3,67,773"
-"27","Aarti Surfactants Ltd","AARTISURF","P&F | F.A","5%","622","26,294"
-"29","Mangalam Organics Ltd","MANORG","P&F | F.A","5%","572.45","6,723"
-"59","Arss Infrastructure Projects Limited","ARSSINFRA","P&F | F.A","5%","52.13","17,551"
-"71","Suumaya Industries Ltd","SUULD","P&F | F.A","5%","3.36","20,841"
-"22","Kalyani Forge Limited","KALYANIFRG","P&F | F.A","4.99%","807.35","3,659"
-"23","Ccl Products (india) Limited","CCL","P&F | F.A","4.98%","761.2","25,19,057"
-"65","Consolidated Construction Consortium Limited","CCCL","P&F | F.A","4.97%","19","4,19,062"
-"30","Ideaforge Technology Ltd","IDEAFORGE","P&F | F.A","4.95%","560.5","33,95,966"
-"69","DCM Financial Services Ltd","DCMFINSERV","P&F | F.A","4.93%","7.24","73,835"
-"70","Noida Toll Bridge Company Limited","NOIDATOLL","P&F | F.A","4.82%","4.35","2,00,366"
-"3","Garware Hi Tech Films Ltd","GRWRHITECH","P&F | F.A","4.79%","4006.5","1,37,375"
-"17","Intellect Design Arena Limited","INTELLECT","P&F | F.A","4.77%","1074.55","10,83,206"
-"36","Mishra Dhatu Nigam Ltd","MIDHANI","P&F | F.A","4.66%","417.8","33,15,073"
-"4","Eclerx Services Limited","ECLERX","P&F | F.A","4.62%","3301.8","3,07,265"
-"5","Timken India Limited","TIMKEN","P&F | F.A","4.53%","3096","2,45,404"
-"34","Zaggle Prepaid Ocean Services Ltd","ZAGGLE","P&F | F.A","4.5%","439.65","18,48,398"
-"1","Apar Industries Limited","APARINDS","P&F | F.A","3.61%","8228","3,31,664"
-"50","Sequent Scientific Limited","SEQUENT","P&F | F.A","3.16%","181.92","22,75,667"
-"67","TruCap Finance Ltd","TRU","P&F | F.A","2.92%","9.17","7,09,527"
-"54","Nelcast Limited","NELCAST","P&F | F.A","2.51%","129.45","7,97,679"
-"53","Nahar Industrial Enterprises Limited","NAHARINDUS","P&F | F.A","2.44%","130.97","83,786"
-"49","Suven Life Sciences Limited","SUVEN","P&F | F.A","2.03%","188.73","12,08,015"
-"20","Dynamic Cables Ltd","DYCL","P&F | F.A","2.02%","832.2","2,67,604"
-"45","Nahar Spinning Mills Limited","NAHARSPING","P&F | F.A","1.87%","275","33,131"
-"51","Elin Electronics Ltd","ELIN","P&F | F.A","1.65%","176.35","2,98,323"
-"44","Tera Software Ltd","TERASOFT","P&F | F.A","1.49%","277.15","72,384"
-"63","Orient Paper & Industries Limited","ORIENTPPR","P&F | F.A","1.3%","31.12","29,25,165"
-"40","Sanghvi Movers Limited","SANGHVIMOV","P&F | F.A","1.08%","333.5","11,46,884"
-"31","Precot Meridian Limited","PRECOT","P&F | F.A","0.91%","542.95","12,092"
-"35","Asahi Songwon Colors Limited","ASAHISONG","P&F | F.A","0.49%","437.65","24,834"
-"9","Netweb Technologies India Ltd","NETWEB","P&F | F.A","0.43%","1831.8","5,84,216"
-"55","Sportking India Ltd","SPORTKING","P&F | F.A","0.21%","117.17","8,35,178"
-"24","Krystal Integrated Services Ltd","KRYSTAL","P&F | F.A","0.13%","662.15","88,150"
-"2","Foseco India Limited","FOSECOIND","P&F | F.A","0.11%","4626.2","7,258"
-"14","Birla Corporation Limited","BIRLACORPN","P&F | F.A","0.11%","1384","1,05,437"
-"26","Faze Three Ltd","FAZE3Q","P&F | F.A","0.07%","623.6","18,372"
-"28","Mayur Uniquoters Ltd","MAYURUNIQ","P&F | F.A","-0.04%","587.6","38,776"
-"12","India Glycols Limited","INDIAGLYCO","P&F | F.A","-0.07%","1755.7","2,48,029"
-"15","R R Kabel Ltd","RRKABEL","P&F | F.A","-0.19%","1315.9","2,91,440"
-"37","Pavna Industries Ltd","PAVNAIND","P&F | F.A","-0.32%","402.25","15,776"
-"52","Linc Ltd","LINC","P&F | F.A","-0.73%","142.61","79,217"
-"13","Credit Analysis And Research Limited","CARERATING","P&F | F.A","-1.32%","1521","2,17,695"
-"33","Aarti Drugs Limited","AARTIDRUGS","P&F | F.A","-1.36%","454.95","1,32,061"
-"61","Indo Rama Synthetics (india) Limited","INDORAMA","P&F | F.A","-1.64%","43.83","3,15,304"
-"57","Bharat Seats Ltd","BHARATSE","P&F | F.A","-2.17%","103.95","1,15,633"
-"62","Ginni Filaments Limited","GINNIFILA","P&F | F.A","-2.96%","37.42","2,65,648"
-"25","Itd Cementation India Limited","ITDCEM","P&F | F.A","-3.11%","653.65","11,03,682"
-"56","Inspirisys Solutions Ltd","INSPIRISYS","P&F | F.A","-3.43%","106.25","1,09,960"
-"7","Shriram Pistons & Rings Limited","SHRIPISTON","P&F | F.A","-3.6%","2356.3","62,954"
-"19","NDR Auto Components Ltd","NDRAUTO","P&F | F.A","-3.68%","896.65","73,784"
-"38","Allied Blenders & Distillers Ltd","ABDL","P&F | F.A","-4.75%","389.95","16,65,394"
+Company,Change
+Garden Reach Ship,+ 59.95
+Paras Defence,+ 52.53
+Apar Industries,+ 45.01
+CARE Ratings,+ 42.55
+ideaForge Technology,+ 40.64
+Honasa Consumer,+ 40.03
+Mishra Dhatu Nig,+ 36.10
+Astra Microwave,+ 34.65
+Intellect Design,+ 34.55
+R R Kabel,+ 33.99
+Bharat Dynamics,+ 33.91
+Zen Technologies Ltd,+ 31.50
+Elecon Engg.,+ 30.50
+Garware Hi-Tech Film,+ 30.38
+Nazara Technologies,+ 29.83
+Cochin Shipyard,+ 28.92
+Inox Green Energy Se,+ 27.47
+eClerx Services,+ 27.35
+Mazagon Dock Ship,+ 26.56
+Newgen Software Tech,+ 26.05
+CCL Products India,+ 26.01
+ITD Cementation Indi,+ 25.86
+Ceat Ltd.,+ 25.66
+Birla Corporation Lt,+ 25.66
+Bharat Electroni,+ 25.44
+Tata Teleservices (M,+ 25.43
+Data Patterns (India,+ 25.16

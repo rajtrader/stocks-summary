@@ -11,8 +11,8 @@ export async function renameCsvFile(oldName, newName, directory = process.cwd())
 
   try {
     await rename(oldPath, newPath);
-    console.log(`✅ Renamed '${oldName}' to '${newName}'`);
+    console.log(`Renamed '${oldName}' to '${newName}'`);
   } catch (err) {
-    console.error(`❌ Error renaming file: ${err.message}`);
+    console.error(`Error renaming file: ${err.message}`);
   }
 }

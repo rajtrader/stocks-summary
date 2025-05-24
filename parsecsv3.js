@@ -8,11 +8,11 @@ function getStockMonthlyFromCSV() {
     fs.createReadStream('monthlyloser.csv')
       .pipe(csv())
       .on('data', (row) => {
-        const name = row['Stock Name'] || Object.values(row)[1];
-        const symbol = row['Symbol'] || Object.values(row)[2];
+        const name = row['Company'] || Object.values(row)[1];
+        const change = row['Change'] || Object.values(row)[2];
 
-        if (name && symbol) {
-          stocks.push({ stockName: name.trim(), stock: symbol.trim() });
+        if (name && change) {
+          stocks.push({ stockName: name.trim(), changePercent: change.trim()  });
           
         }
     

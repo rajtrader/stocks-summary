@@ -16,7 +16,7 @@ const dbConfig = {
   connectionLimit: 10,
   queueLimit: 0
 };
-const wpApiUrl = 'https://profitbooking.in/wp-json/scraper/v1/stockedge-groq';
+const wpApiUrl = 'https://profitbooking.in/wp-json/scraper/v1/stockedge-groq-monthly';
 
 function delay(ms) {
   return new Promise(resolve => setTimeout(resolve, ms));
@@ -26,13 +26,49 @@ const pool = mysql.createPool(dbConfig);
 
 // Utility function to parse quoted CSV correctly
 function parseCSVLine(line) {
-  const regex = /"([^"]*)"/g;
   const result = [];
-  let match;
-  while ((match = regex.exec(line))) {
-    result.push(match[1]);
+  let current = '';
+  let inQuotes = false;
+  let escapeNext = false;
+
+  for (let i = 0; i < line.length; i++) {
+    const char = line[i];
+
+    if (escapeNext) {
+      current += char;
+      escapeNext = false;
+      continue;
+    }
+
+    if (char === '\\') {
+      escapeNext = true;
+      continue;
+    }
+
+    if (char === '"') {
+      if (inQuotes && line[i + 1] === '"') {
+        current += '"';
+        i++; 
+      } else {
+        inQuotes = !inQuotes;
+      }
+      continue;
+    }
+
+    if (char === ',' && !inQuotes) {
+      result.push(current);
+      current = '';
+      continue;
+    }
+
+    current += char;
   }
-  return result;
+
+  // Add the last field
+  result.push(current);
+
+  // Trim whitespace from unquoted fields
+  return result.map(field => inQuotes ? field : field.trim());
 }
 
 function extractStockNameFromCSV(filePath = './monthlyloser.csv') {
@@ -40,18 +76,18 @@ function extractStockNameFromCSV(filePath = './monthlyloser.csv') {
   const lines = csv.trim().split('\n');
 
   const header = parseCSVLine(lines[0]);
-  const stockNameIndex = header.indexOf('Stock Name');
-  const symbolIndex = header.indexOf('Symbol');
+  const stockNameIndex = header.indexOf('Company');
+  const change=header.indexOf('Change');
 
-  if (stockNameIndex === -1 || symbolIndex === -1) {
-    throw new Error('Missing required columns: "Stock Name" or "Symbol"');
+  if (stockNameIndex === -1) {
+    throw new Error('Missing required column: "Company"');
   }
 
   const companies = lines.slice(1).map(line => {
     const fields = parseCSVLine(line);
     return {
       name: fields[stockNameIndex],
-      symbol: fields[symbolIndex]
+      changePercent:fields[change]
     };
   });
 
@@ -125,11 +161,11 @@ function extractTop3Points(text) {
   });
 }
 
-async function sendToWordPress(stock, stockName, reasons, tag = 'monthlyloser') {
+async function sendToWordPress( stockName,changePercent, reasons, tag = 'monthlyloser') {
   try {
     const response = await axios.post(wpApiUrl, {
-      stock: stock,
       stockName: stockName,
+      changePercent:changePercent,
       summary1: reasons[0] || 'No summary available',
       summary2: reasons[1] || 'No summary available',
       summary3: reasons[2] || 'No summary available',
@@ -165,7 +201,7 @@ export async function runmonthlyloss() {
     const reasonsArray = extractTop3Points(cleanResult);
     console.log("Extracted top 3 reasons:", reasonsArray);
     if (reasonsArray.length === 3) {
-    await sendToWordPress(company.symbol, company.name, reasonsArray);
+    await sendToWordPress(company.name,company.changePercent, reasonsArray);
     } else {
     console.warn(`Could not extract 3 reasons for ${company.name}, skipping WordPress posting.`);
 }
