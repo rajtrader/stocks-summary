@@ -16,17 +16,17 @@ import {runmonthlyloss} from './prompt3.js';
 import {runmonthlygain} from './prompt4.js';
 async function runAllTasksSequentially() {
   try {
-    await runChartinkScraper();
-    console.log('Daily Gainer scraping completed!');
+    //await runChartinkScraper();
+    //console.log('Daily Gainer scraping completed!');
 
-     await feed();
-    console.log('Daily Gainer feed completed!');
+    // await feed();
+    //console.log('Daily Gainer feed completed!');
 
-    await getDailyLosers();
-    console.log('Daily Loser scraping completed!');
+    //await getDailyLosers();
+   // console.log('Daily Loser scraping completed!');
 
-    await feeddailyloser();
-    console.log('Daily Loser feed completed!');
+    //await feeddailyloser();
+    //console.log('Daily Loser feed completed!');
 
     //await runMonthlyGainerScraper();
     //console.log('Monthly Gainer scraping completed!');
