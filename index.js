@@ -40,8 +40,8 @@ async function runAllTasksSequentially() {
     //await feedmonthlyloser();
     //console.log('Monthly Loser feed completed!');
     
-    await rundailygainer();
-    console.log('Prompt completed!');
+    //await rundailygainer();
+    //console.log('Prompt completed!');
 
     await rundailyloser()
     console.log('Prompt completed!');
