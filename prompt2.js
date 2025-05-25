@@ -6,7 +6,7 @@ import dotenv from 'dotenv'
 
 dotenv.config();
 
-const apikey=process.env.API_PROMPT_LOSER;
+const apikey=process.env.API_PROMPT;
 const dbConfig = {
   host: 'srv1856.hstgr.io',
   user: 'u218978860_fbcwE',
