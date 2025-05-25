@@ -8,8 +8,8 @@ import { deleteCsv } from './deletecsv.js';
 
 const __filename = fileURLToPath(import.meta.url);
 const __dirname = path.dirname(__filename);
-export async function runMonthlyGainerScraper()  {
-  const url = "https://money.rediff.com/gainers/bse/monthly/groupa";
+export async function runMonthlyGainerScraperGroupb()  {
+  const url = "https://money.rediff.com/gainers/bse/monthly/groupb";
 
   const browser = await puppeteer.launch({ headless: true });
   const page = await browser.newPage();
@@ -40,25 +40,16 @@ export async function runMonthlyGainerScraper()  {
   const csvContent = csvHeader + csvRows;
 
   // Write to file
-  fs.writeFileSync("gainers.csv", csvContent);
+  fs.writeFileSync("gainers_b.csv", csvContent);
   
   console.log("CSV file saved as gainers.csv");
-  renameCsvFile('gainers.csv', 'monthlygain.csv');
-  const sourcePath = path.join(__dirname, 'monthlygain.csv');
-  const destinationPath = path.join(__dirname, 'monthlygainer.csv');
+  renameCsvFile('gainers_b.csv', 'monthlygain_b.csv');
+  const sourcePath = path.join(__dirname, 'monthlygain_b.csv');
+  const destinationPath = path.join(__dirname, 'monthlygainers_b.csv');
   copyCsv(sourcePath, destinationPath);
   deleteCsv(sourcePath);
-  console.log('CSV file has been renamed and copied to monthlygainer.csv');
+  console.log('CSV file has been renamed and copied to monthlygainer_b.csv');
 
-  const csv1 = fs.readFileSync(path.join(__dirname, 'monthlygainer.csv'), 'utf-8').trim();
-  const csv2 = fs.readFileSync(path.join(__dirname, 'monthlygainers_b.csv'), 'utf-8').trim();
-
-  const [header1, ...lines1] = csv1.split('\n');
-  const [_, ...lines2] = csv2.split('\n'); 
-
-  const combinedCsv = [header1, ...lines1, ...lines2].join('\n');
-
-  fs.writeFileSync(path.join(__dirname, 'finalmonthlygain.csv'), combinedCsv);
-  console.log('CSV files combined and saved as finalmonthlygain.csv');
 
 };
+//phele groupb run krke groua mai integrate

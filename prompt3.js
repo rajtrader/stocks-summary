@@ -71,7 +71,7 @@ function parseCSVLine(line) {
   return result.map(field => inQuotes ? field : field.trim());
 }
 
-function extractStockNameFromCSV(filePath = './monthlyloser.csv') {
+function extractStockNameFromCSV(filePath = './finalmonthlyloss.csv') {
   const csv = fs.readFileSync(filePath, 'utf-8');
   const lines = csv.trim().split('\n');
 
@@ -182,7 +182,7 @@ async function sendToWordPress( stockName,changePercent, reasons, tag = 'monthly
 
 export async function runmonthlyloss() {
   
-  const companies = extractStockNameFromCSV('./monthlyloser.csv');
+  const companies = extractStockNameFromCSV('./finalmonthlyloss.csv');
 
   for (const company of companies) {
     const feed = await getCompanyFeed(company.name);

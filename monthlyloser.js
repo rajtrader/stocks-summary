@@ -50,5 +50,16 @@ export async function getMonthlyLosers() {
   deleteCsv(sourcePath);
   console.log('CSV file has been renamed and copied to monthlyloser.csv');
 
-
+    const csv1 = fs.readFileSync(path.join(__dirname, 'monthlyloser.csv'), 'utf-8').trim();
+    const csv2 = fs.readFileSync(path.join(__dirname, 'monthlylosergroupb.csv'), 'utf-8').trim();
+  
+    const [header1, ...lines1] = csv1.split('\n');
+    const [_, ...lines2] = csv2.split('\n'); 
+  
+    const combinedCsv = [header1, ...lines1, ...lines2].join('\n');
+  
+    fs.writeFileSync(path.join(__dirname, 'finalmonthlyloss.csv'), combinedCsv);
+    console.log('CSV files combined and saved as finalmonthlyloss.csv');
+  
 };
+
