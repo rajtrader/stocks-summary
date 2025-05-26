@@ -118,7 +118,13 @@ async function getCompanyFeed(stockName) {
 async function classifyFeedWithGroq(stockName, feed, apikey) {
   const prompt = `You are a financial analyst. Analyze the following recent news and updates about the NSE-listed company "${stockName}":${feed}
 From this feed, identify and give the **top 3 feed** why this company may be appearing as a monthly gainer in the stock market. Base your reasoning only on the feed content. Be concise and specific. 
-From the above content, Find 3 reasons explaining the monthly gainer behaviour, and give each reason in 100 characters.`;
+From the above content, Find 3 reasons explaining the monthly gainer behaviour, and give each reason in 100 characters with a title of 2 words for each reason.
+Format:
+1. Title: Explanation (up to 100 characters)
+2. Title: Explanation
+3. Title: Explanation
+
+Be specific, relevant, and brief.`;
 
   try {
     const response = await axios.post(
