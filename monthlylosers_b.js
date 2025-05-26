@@ -11,8 +11,33 @@ const __dirname = path.dirname(__filename);
 export async function getMonthlyLosersgroupb() {
   const url = "https://money.rediff.com/losers/bse/monthly/groupb";
 
-  const browser = await puppeteer.launch({ headless: true });
+  const browser = await puppeteer.launch({ 
+    headless: true,
+   
+    defaultViewport: null,
+    timeout: 0,
+    args: [
+      '--no-sandbox',
+      '--disable-setuid-sandbox',
+      '--disable-dev-shm-usage',
+      '--disable-gpu',
+      '--single-process',
+      '--disable-extensions',
+      '--disable-blink-features=AutomationControlled', // Important
+    '--window-size=1920,1080'
+    ],
+       ignoreHTTPSErrors: true,
+   });
   const page = await browser.newPage();
+    
+  await page.setUserAgent(
+    'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/122.0.0.0 Safari/537.36'
+  );
+  
+  await page.setExtraHTTPHeaders({
+    'accept-language': 'en-US,en;q=0.9',
+    'Accept': 'text/html,application/xhtml+xml,application/xml;q=0.9,image/webp,*/*;q=0.8'
+  });
 
   await page.goto(url, { waitUntil: "domcontentloaded" });
 
