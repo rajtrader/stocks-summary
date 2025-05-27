@@ -68,8 +68,8 @@ export async function runMonthlyGainerScraperGroupb()  {
   fs.writeFileSync("gainers_b.csv", csvContent);
   
   console.log("CSV file saved as gainers.csv");
-  renameCsvFile('gainers_b.csv', 'monthlygain_b.csv');
-  const sourcePath = path.join(__dirname, 'monthlygain_b.csv');
+  console.log("wait")
+  const sourcePath = path.join(__dirname, 'gainers_b.csv');
   const destinationPath = path.join(__dirname, 'monthlygainers_b.csv');
   copyCsv(sourcePath, destinationPath);
   deleteCsv(sourcePath);

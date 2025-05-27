@@ -68,8 +68,7 @@ export async function getMonthlyLosersgroupb() {
   fs.writeFileSync("losers_b.csv", csvContent);
   
   console.log("CSV file saved as losers_b.csv");
-  renameCsvFile('losers_b.csv', 'monthlyloss_b.csv');
-  const sourcePath = path.join(__dirname, 'monthlyloss_b.csv');
+  const sourcePath = path.join(__dirname, 'losers_b.csv');
   const destinationPath = path.join(__dirname, 'monthlylosergroupb.csv');
   copyCsv(sourcePath, destinationPath);
   deleteCsv(sourcePath);

@@ -184,4 +184,3 @@ export async function rundailygainer() {
     await delay(30000); 
   }
 }
-rundailygainer()

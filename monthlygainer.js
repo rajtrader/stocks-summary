@@ -65,17 +65,16 @@ export async function runMonthlyGainerScraper()  {
   const csvContent = csvHeader + csvRows;
 
   // Write to file
-  fs.writeFileSync("gainers.csv", csvContent);
+  fs.writeFileSync("gainers_a.csv", csvContent);
   
-  console.log("CSV file saved as gainers.csv");
-  renameCsvFile('gainers.csv', 'monthlygain.csv');
-  const sourcePath = path.join(__dirname, 'monthlygain.csv');
-  const destinationPath = path.join(__dirname, 'monthlygainer.csv');
+  console.log("CSV file saved as gainers_a.csv");
+  const sourcePath = path.join(__dirname, 'gainers_a.csv');
+  const destinationPath = path.join(__dirname, 'monthlygainer_a.csv');
   copyCsv(sourcePath, destinationPath);
   deleteCsv(sourcePath);
-  console.log('CSV file has been renamed and copied to monthlygainer.csv');
+  console.log('CSV file has been renamed and copied to monthlygainer_a.csv');
 
-  const csv1 = fs.readFileSync(path.join(__dirname, 'monthlygainer.csv'), 'utf-8').trim();
+  const csv1 = fs.readFileSync(path.join(__dirname, 'monthlygainer_a.csv'), 'utf-8').trim();
   const csv2 = fs.readFileSync(path.join(__dirname, 'monthlygainers_b.csv'), 'utf-8').trim();
 
   const [header1, ...lines1] = csv1.split('\n');
@@ -83,7 +82,12 @@ export async function runMonthlyGainerScraper()  {
 
   const combinedCsv = [header1, ...lines1, ...lines2].join('\n');
 
-  fs.writeFileSync(path.join(__dirname, 'finalmonthlygain.csv'), combinedCsv);
+  fs.writeFileSync(path.join(__dirname, 'finalmonthly.csv'), combinedCsv);
+  const sourcePath1 = path.join(__dirname, 'finalmonthly.csv');
+  const destinationPath1 = path.join(__dirname, 'finalmonthlygain.csv');
+  copyCsv(sourcePath1, destinationPath1);
+  deleteCsv(sourcePath1);
+  
   console.log('CSV files combined and saved as finalmonthlygain.csv');
 
 };

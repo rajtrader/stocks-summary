@@ -1,7 +1,6 @@
 import puppeteer from "puppeteer";
 import fs from "fs";
 import path from 'path';
-import { renameCsvFile } from './renamecsv.js';
 import { fileURLToPath } from 'url';
 import { copyCsv } from './copycsv.js';
 import { deleteCsv } from './deletecsv.js';
@@ -65,11 +64,10 @@ export async function getMonthlyLosers() {
   const csvContent = csvHeader + csvRows;
 
   // Write to file
-  fs.writeFileSync("losers.csv", csvContent);
+  fs.writeFileSync("losers_a.csv", csvContent);
   
-  console.log("CSV file saved as losers.csv");
-  renameCsvFile('losers.csv', 'monthlyloss.csv');
-  const sourcePath = path.join(__dirname, 'monthlyloss.csv');
+  console.log("CSV file saved as losers_a.csv");
+  const sourcePath = path.join(__dirname, 'losers_a.csv');
   const destinationPath = path.join(__dirname, 'monthlyloser.csv');
   copyCsv(sourcePath, destinationPath);
   deleteCsv(sourcePath);
@@ -83,7 +81,12 @@ export async function getMonthlyLosers() {
   
     const combinedCsv = [header1, ...lines1, ...lines2].join('\n');
   
-    fs.writeFileSync(path.join(__dirname, 'finalmonthlyloss.csv'), combinedCsv);
+    fs.writeFileSync(path.join(__dirname, 'finalmonthlyloos.csv'), combinedCsv);
+    const sourcePath1 = path.join(__dirname, 'finalmonthlyloos.csv');
+      const destinationPath1 = path.join(__dirname, 'finalmonthlyloss.csv');
+      copyCsv(sourcePath1, destinationPath1);
+      deleteCsv(sourcePath1);
+      
     console.log('CSV files combined and saved as finalmonthlyloss.csv');
   
 };

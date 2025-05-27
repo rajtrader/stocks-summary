@@ -20,7 +20,7 @@ import {getMonthlyLosersgroupb} from './monthlylosers_b.js';
 import {runMonthlyGainerScraperGroupb} from './monthlygainer_b.js';
 async function runAllTasksSequentially() {
   try {
-    /*await runChartinkScraper();
+    await runChartinkScraper();
     console.log('Daily Gainer scraping completed!');
 
      await feed();
@@ -31,7 +31,7 @@ async function runAllTasksSequentially() {
 
     await feeddailyloser();
     console.log('Daily Loser feed completed!');
-    */
+    
     await runMonthlyGainerScraperGroupb();
     await runMonthlyGainerScraper();
     console.log('Monthly Gainer scraping completed!');
